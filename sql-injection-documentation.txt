@@ -1,0 +1,28 @@
+1. do not allow direct access to the db server from Internet(if on an internet facing server, 
+only allow access from "localhost" place behind firewall)
+
+2. Implement proper db user access controls(All users should have a password use minimal previlags:"select only",
+select, delete, insert, update )
+
+3. Review default setting: Remove default installation or configuration folders changes any 
+default username or password
+
+4.for configure the file con=(user="root",password="") make sure not to use user as root and password 
+should not be empty
+
+5.Hoe to prevent the sql injection:
+there are two ways :
+1.passing query Parameters
+2.passing the query in prepared method
+
+Passing Safe Query Parameters:# SAFE EXAMPLES. DO THIS!
+
+cursor.execute("SELECT admin FROM users WHERE username = %s'", (username, ));
+cursor.execute("SELECT admin FROM users WHERE username = %(username)s", {'username': username});
+
+passing the query in prepared method
+
+connection=mysql.connector.connect(db="db_name",user="abc",password="abc@123",host="localhost")
+cur=connection.cursor()
+cur.prepare("select * from user where user_id=%s")
+cur.execute(sql,(user_id,))

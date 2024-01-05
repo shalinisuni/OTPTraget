@@ -1,0 +1,4 @@
+Flask
+hashlib
+Mail
+mysql
